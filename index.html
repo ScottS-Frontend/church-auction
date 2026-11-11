@@ -23,16 +23,17 @@
     background: #fafafa;
     color: var(--text);
     padding: 24px 16px;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 1.15rem;
   }
-  .page { max-width: 680px; margin: 0 auto; }
+  .page { max-width: 1000px; margin: 0 auto; }
   header { text-align: center; margin-bottom: 20px; }
-  header h1 { color: var(--accent); font-size: 1.8rem; }
-  header p { font-style: italic; color: #666; }
+  header h1 { color: var(--accent); font-size: 2.4rem; }
+  header p { font-style: italic; color: #666; font-size: 1.2rem; }
 
   .status {
     text-align: center;
-    font-size: 0.85rem;
+    font-size: 1rem;
     color: #999;
     margin-bottom: 16px;
   }
@@ -46,9 +47,9 @@
     padding: 18px;
     margin-bottom: 24px;
   }
-  .current-bid .label { font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); }
-  .current-bid .amount { font-size: 2.4rem; font-weight: bold; color: var(--accent); }
-  .current-bid .leader { font-size: 0.95rem; color: #555; }
+  .current-bid .label { font-size: 1.05rem; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); }
+  .current-bid .amount { font-size: 3.2rem; font-weight: bold; color: var(--accent); }
+  .current-bid .leader { font-size: 1.15rem; color: #555; }
 
   form {
     background: #fff;
@@ -57,79 +58,170 @@
     padding: 20px;
     margin-bottom: 28px;
   }
-  form h2 { font-size: 1.1rem; color: var(--accent); margin-bottom: 12px; }
+  form h2 { font-size: 1.35rem; color: var(--accent); margin-bottom: 12px; }
   .form-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
   .form-group { flex: 1; min-width: 140px; display: flex; flex-direction: column; }
-  .form-group label { font-size: 0.8rem; font-weight: bold; margin-bottom: 3px; }
+  .form-group label { font-size: 0.95rem; font-weight: bold; margin-bottom: 3px; }
   .form-group input {
-    padding: 9px 10px;
+    padding: 12px;
     border: 1px solid var(--border);
     border-radius: 5px;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 1.15rem;
   }
   .form-group input:focus { outline: 2px solid var(--accent-light); border-color: var(--accent); }
   button {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: var(--accent);
     color: #fff;
     border: none;
     border-radius: 5px;
     font-family: inherit;
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     cursor: pointer;
   }
   button:disabled { opacity: 0.5; cursor: not-allowed; }
   button:hover:not(:disabled) { filter: brightness(1.1); }
-  .message { margin-top: 10px; font-size: 0.9rem; min-height: 1.2em; text-align: center; }
+  .message { margin-top: 10px; font-size: 1.05rem; min-height: 1.2em; text-align: center; }
   .message.error { color: #c62828; }
   .message.success { color: var(--green); }
 
-  .history h2 { color: var(--accent); font-size: 1.1rem; margin-bottom: 10px; }
+  .history h2 { color: var(--accent); font-size: 1.35rem; margin-bottom: 10px; }
   table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
   th {
     background: var(--accent);
     color: #fff;
     text-align: left;
-    padding: 10px 12px;
-    font-size: 0.85rem;
+    padding: 12px 14px;
+    font-size: 1.05rem;
     letter-spacing: 0.5px;
   }
-  td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+  td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 1.15rem; }
   tr:last-child td { border-bottom: none; }
   tr.top-bid td { background: var(--accent-light); font-weight: bold; }
   td.bid-amount { font-weight: bold; color: var(--accent); }
-  .no-bids { text-align: center; color: #888; font-style: italic; padding: 20px; }
+  .no-bids { text-align: center; color: #888; font-style: italic; padding: 20px; font-size: 1.1rem; }
 
   .rules {
     margin-top: 28px;
     background: var(--accent-light);
     border-radius: 8px;
-    padding: 14px 18px;
-    font-size: 0.88rem;
+    padding: 16px 20px;
+    font-size: 1.05rem;
   }
-  .rules h3 { color: var(--accent); font-size: 1rem; margin-bottom: 6px; }
+  .rules h3 { color: var(--accent); font-size: 1.25rem; margin-bottom: 6px; }
+
+  /* ---- Buy It Now ---- */
+  .btn-buy {
+    background: #2e7d32;
+    margin-top: 10px;
+  }
+  .btn-buy:hover:not(:disabled) { filter: brightness(1.15); }
+  .sold-banner {
+    background: #2e7d32;
+    color: #fff;
+    border-radius: 8px;
+    text-align: center;
+    padding: 22px;
+    margin-bottom: 24px;
+  }
+  .sold-banner .big { font-size: 2.6rem; font-weight: bold; letter-spacing: 2px; }
+  .sold-banner .details { font-size: 1.15rem; margin-top: 6px; opacity: 0.9; }
   .rules ul { margin-left: 18px; }
+
+  /* ---- Quilt showcase ---- */
+  .quilt-showcase {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .quilt-photos { flex: 1 1 55%; min-width: 280px; }
+  .quilt-details { flex: 1 1 300px; min-width: 280px; }
+  .quilt-main-photo {
+    width: 100%;
+    max-height: 560px;
+    object-fit: contain;
+    background: var(--accent-light);
+    border-radius: 6px;
+    display: block;
+  }
+  .quilt-thumbs {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+  }
+  .quilt-thumbs img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    opacity: 0.7;
+    transition: all 0.2s;
+  }
+  .quilt-thumbs img:hover { opacity: 1; }
+  .quilt-thumbs img.active { border-color: var(--accent); opacity: 1; }
+  .quilt-details h2 {
+    color: var(--accent);
+    font-size: 1.6rem;
+    margin: 0 0 12px;
+  }
+  .quilt-details ul { margin-left: 18px; font-size: 1.1rem; }
+  .quilt-details li { margin-bottom: 6px; }
 </style>
+<base target="_blank">
 </head>
 <body>
 <div class="page">
 
   <header>
-    <h1><!-- CHANGE -->"[Quilt Name]" Quilt Auction</h1>
-    <p><!-- CHANGE -->United Methodist Women — Community United Methodist Church</p>
+    <h1>"Vintage 9 Patch" Quilt Auction</h1>
+    <p>United Methodist Women — Community United Methodist Church</p>
   </header>
 
+  <div class="quilt-showcase">
+    <div class="quilt-photos">
+      <img src="images/quilt01.jpg" alt="Vintage 9 Patch quilt" class="quilt-main-photo" id="mainPhoto">
+      <div class="quilt-thumbs">
+        <img src="images/quilt01.jpg" alt="Quilt view 1" class="active" onclick="swapPhoto(this)">
+        <img src="images/quilt02.jpg" alt="Quilt view 2" onclick="swapPhoto(this)">
+        <img src="images/quilt03.jpg" alt="Quilt view 3" onclick="swapPhoto(this)">
+      </div>
+    </div>
+    <div class="quilt-details">
+      <h2>Vintage 9 Patch</h2>
+      <ul>
+        <li>Measures 86 &times; 67 inches &mdash; approximately a full-size quilt</li>
+        <li>Quilt top is 100% cotton fabric, with hand-pieced 9-patch blocks &mdash; each individual square is hand sewn together</li>
+        <li>Batting is 100% cotton (Warm &amp; Natural brand)</li>
+        <li>The entire quilt is hand quilted and finished with a hand-sewn binding</li>
+      </ul>
+    </div>
+  </div>
+
   <div class="status" id="status">Connecting…</div>
+
+  <div class="sold-banner" id="soldBanner" style="display:none">
+    <div class="big">SOLD!</div>
+    <div class="details" id="soldDetails"></div>
+  </div>
 
   <div class="rules">
     <h3>Auction Rules</h3>
     <ul>
-      <li><!-- CHANGE -->Bidding closes [date/time]. Highest bid at closing wins.</li>
-      <li><!-- CHANGE -->Minimum bid $[amount]; bids must be at least $[increment] higher than the current bid.</li>
-      <li><!-- CHANGE -->Winner will be contacted by phone to arrange payment and pickup.</li>
-      <li><!-- CHANGE -->Proceeds benefit [mission/fund].</li>
+      <li>Bidding closes <strong>December 15, 2026 at 5:00 PM</strong>. Highest bid at closing wins.</li>
+      <li>Opening bid is <strong>$150</strong>; each new bid must be at least $10 higher than the current bid.</li>
+      <li>Or skip the bidding entirely: <strong>Buy It Now for $1,000</strong>. The auction ends immediately and the quilt is yours! Enter your name and phone number and click the "Buy It Now" button</li>
+      <li>Winner will be contacted by phone to arrange payment and pickup.</li>
+      <li><!-- CHANGE -->Proceeds benefit local Solano County charities.</li>
     </ul>
   </div>
 
@@ -158,6 +250,7 @@
       </div>
     </div>
     <button type="submit" id="submitBtn">Submit Bid</button>
+    <button type="button" id="buyNowBtn" class="btn-buy">Buy It Now — $1,000</button>
     <div class="message" id="message"></div>
   </form>
 
@@ -193,10 +286,12 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const bidsRef = db.ref("quilt-auction/bids");
+const statusRef = db.ref("quilt-auction/status");
+const BUY_NOW_PRICE = 1000;
 
 // ---- Config ----
-const MIN_BID = 0;            // CHANGE: minimum opening bid
-const MIN_INCREMENT = 5;      // CHANGE: min amount over current high bid
+const MIN_BID = 150;            // CHANGE: minimum opening bid
+const MIN_INCREMENT = 10;      // CHANGE: min amount over current high bid
 // ----------------
 
 const statusEl = document.getElementById("status");
@@ -208,7 +303,25 @@ const messageEl = document.getElementById("message");
 const submitBtn = document.getElementById("submitBtn");
 
 let bids = [];   // all bids, kept in memory
+let sold = null; // null = auction open; object = sold info
 let currentHigh = 0;
+
+// Listen for auction status (Buy It Now)
+statusRef.on("value", (snapshot) => {
+  sold = snapshot.val();
+  if (sold) showSold();
+});
+
+function showSold() {
+  const banner = document.getElementById("soldBanner");
+  const form = document.getElementById("bidForm");
+  const status = document.getElementById("status");
+  banner.style.display = "block";
+  document.getElementById("soldDetails").textContent =
+    "Purchased by " + sold.name + " for $" + BUY_NOW_PRICE.toLocaleString() + " via Buy It Now.";
+  form.style.display = "none";
+  status.style.display = "none";
+}
 
 // Live listener — updates everyone's screen in real time
 bidsRef.on("value", (snapshot) => {
@@ -258,6 +371,12 @@ function render() {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   messageEl.className = "message";
+
+  if (sold) {
+    messageEl.textContent = "This quilt has been sold — auction is closed.";
+    messageEl.classList.add("error");
+    return;
+  }
 
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
@@ -312,6 +431,84 @@ function escapeHtml(str) {
     .replaceAll("&", "&amp;").replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
+
+// Buy It Now: atomic transaction — first click wins, everyone else is locked out
+document.getElementById("buyNowBtn").addEventListener("click", async () => {
+  messageEl.className = "message";
+
+  if (sold) {
+    messageEl.textContent = "Already sold!";
+    messageEl.classList.add("error");
+    return;
+  }
+
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+
+  if (!name || !phone) {
+    messageEl.textContent = "Please enter your name and phone number first.";
+    messageEl.classList.add("error");
+    return;
+  }
+
+  if (!confirm("Buy the quilt now for $1,000?\n\nThis ends the auction immediately and you agree to pay $" + BUY_NOW_PRICE.toLocaleString() + ".")) {
+    return;
+  }
+
+  const buyBtn = document.getElementById("buyNowBtn");
+  buyBtn.disabled = true;
+  buyBtn.textContent = "Processing…";
+
+  try {
+    const result = await statusRef.transaction((current) => {
+      // If nobody has bought it yet, claim it; otherwise abort
+      if (current === null) {
+        return {
+          name, phone, price: BUY_NOW_PRICE,
+          timestamp: firebase.database.ServerValue.TIMESTAMP
+        };
+      }
+      return; // abort — someone else got it first
+    });
+
+    if (result.committed) {
+      form.reset();
+      messageEl.textContent = "✓ Congratulations — you bought the quilt!";
+      messageEl.classList.add("success");
+    } else {
+      messageEl.textContent = "Someone just bought it — the auction is closed.";
+      messageEl.classList.add("error");
+    }
+  } catch (err) {
+    messageEl.textContent = "Something went wrong — please try again.";
+    messageEl.classList.add("error");
+    console.error(err);
+  } finally {
+    buyBtn.disabled = false;
+    buyBtn.textContent = "Buy It Now — $1,000";
+  }
+});
+
+// Photo gallery: click a thumbnail to swap the main image
+function swapPhoto(thumb) {
+  document.getElementById("mainPhoto").src = thumb.src;
+  document.querySelectorAll(".quilt-thumbs img").forEach(img => img.classList.remove("active"));
+  thumb.classList.add("active");
+}
+
+// Auto-format phone number as (XXX) XXX-XXXX while typing
+document.getElementById("phone").addEventListener("input", (e) => {
+  let digits = e.target.value.replace(/\D/g, "").slice(0, 10);
+  let formatted = digits;
+  if (digits.length > 6) {
+    formatted = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  } else if (digits.length > 3) {
+    formatted = `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  } else if (digits.length > 0) {
+    formatted = `(${digits}`;
+  }
+  e.target.value = formatted;
+});
 </script>
 </body>
 </html>
