@@ -112,6 +112,20 @@
   }
   .rules h3 { color: var(--accent); font-size: 1.25rem; margin-bottom: 6px; }
 
+  /* ---- Auction schedule banner ---- */
+  .schedule-banner {
+    background: var(--accent-light);
+    border: 2px dashed var(--accent);
+    border-radius: 8px;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .schedule-banner .big { color: var(--accent); font-weight: bold; font-size: 1.3rem; }
+  .schedule-banner .countdown { font-size: 1.05rem; margin-top: 6px; color: #555; }
+  .schedule-banner.ended { border-color: #999; background: #f0f0f0; border-style: solid; }
+  .schedule-banner.ended .big { color: #555; }
+
   /* ---- Buy It Now ---- */
   .btn-buy {
     background: #2e7d32;
@@ -209,6 +223,8 @@
 
   <div class="status" id="status">Connecting…</div>
 
+  <div class="schedule-banner" id="scheduleBanner" style="display:none"></div>
+
   <div class="sold-banner" id="soldBanner" style="display:none">
     <div class="big">SOLD!</div>
     <div class="details" id="soldDetails"></div>
@@ -217,11 +233,12 @@
   <div class="rules">
     <h3>Auction Rules</h3>
     <ul>
+      <li>Bidding opens <strong>Saturday, November 14, 2026 at 9:00 AM</strong>.</li>
       <li>Bidding closes <strong>December 15, 2026 at 5:00 PM</strong>. Highest bid at closing wins.</li>
       <li>Opening bid is <strong>$150</strong>; each new bid must be at least $10 higher than the current bid.</li>
       <li>Or skip the bidding entirely: <strong>Buy It Now for $1,000</strong>. The auction ends immediately and the quilt is yours! Enter your name and phone number and click the "Buy It Now" button</li>
       <li>Winner will be contacted by phone to arrange payment and pickup.</li>
-      <li><!-- CHANGE -->Proceeds benefit local Solano County charities.</li>
+      <li>Proceeds benefit local Solano County charities.</li>
     </ul>
   </div>
 
@@ -292,7 +309,18 @@ const BUY_NOW_PRICE = 1000;
 // ---- Config ----
 const MIN_BID = 150;            // CHANGE: minimum opening bid
 const MIN_INCREMENT = 10;      // CHANGE: min amount over current high bid
+
+// Auction schedule (Pacific Time — adjust the times here if needed)
+const OPEN_DATE  = new Date("2026-11-10T09:00:00-08:00");  // TEMP: open for testing
+const CLOSE_DATE = new Date("2026-12-15T17:00:00-08:00");  // bidding closes Dec 15 5PM
 // ----------------
+
+function getPhase() {
+  const now = Date.now();
+  if (now < OPEN_DATE.getTime()) return "upcoming";
+  if (now > CLOSE_DATE.getTime()) return "ended";
+  return "live";
+}
 
 const statusEl = document.getElementById("status");
 const highBidEl = document.getElementById("highBid");
@@ -377,6 +405,11 @@ form.addEventListener("submit", async (e) => {
     messageEl.classList.add("error");
     return;
   }
+  if (getPhase() !== "live") {
+    messageEl.textContent = "Bidding is not open right now.";
+    messageEl.classList.add("error");
+    return;
+  }
 
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
@@ -441,6 +474,11 @@ document.getElementById("buyNowBtn").addEventListener("click", async () => {
     messageEl.classList.add("error");
     return;
   }
+  if (getPhase() !== "live") {
+    messageEl.textContent = "Buy It Now is not available right now.";
+    messageEl.classList.add("error");
+    return;
+  }
 
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
@@ -495,6 +533,67 @@ function swapPhoto(thumb) {
   document.querySelectorAll(".quilt-thumbs img").forEach(img => img.classList.remove("active"));
   thumb.classList.add("active");
 }
+
+
+// ---- Auction schedule: banner, countdown, and automatic open/close ----
+let appliedPhase = null;
+
+function applyPhase() {
+  const banner = document.getElementById("scheduleBanner");
+  const bidForm = document.getElementById("bidForm");
+  const bidCard = document.querySelector(".current-bid");
+  const phase = getPhase();
+
+  if (sold) { banner.style.display = "none"; return; }
+
+  if (phase === "live") {
+    banner.style.display = "none";
+    bidForm.style.display = "";
+    bidCard.style.display = "";
+    return;
+  }
+
+  if (phase === "upcoming") {
+    banner.classList.remove("ended");
+    banner.style.display = "block";
+    banner.innerHTML =
+      '<div class="big">Bidding opens Saturday, November 14 at 9:00 AM!</div>' +
+      '<div class="countdown" id="countdown"></div>';
+    bidForm.style.display = "none";   // hide until opening
+    bidCard.style.display = "none";
+    return;
+  }
+
+  if (phase === "ended") {
+    banner.classList.add("ended");
+    banner.style.display = "block";
+    banner.innerHTML =
+      '<div class="big">This auction has ended.</div>' +
+      '<div>Thank you to everyone who placed a bid!</div>';
+    bidForm.style.display = "none";
+    // bid history stays visible so everyone can see the final result
+  }
+}
+
+function updateCountdown() {
+  const el = document.getElementById("countdown");
+  if (!el) return;
+  const diff = OPEN_DATE.getTime() - Date.now();
+  if (diff <= 0) return;
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  el.textContent = "Starting in " + d + " days, " + h + " hours, " + m + " minutes, " + s + " seconds";
+}
+
+function tickSchedule() {
+  const phase = getPhase();
+  if (phase !== appliedPhase) { appliedPhase = phase; applyPhase(); }
+  updateCountdown();
+}
+tickSchedule();
+setInterval(tickSchedule, 1000);
 
 // Auto-format phone number as (XXX) XXX-XXXX while typing
 document.getElementById("phone").addEventListener("input", (e) => {
