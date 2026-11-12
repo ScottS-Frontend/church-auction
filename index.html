@@ -607,6 +607,18 @@ document.getElementById("phone").addEventListener("input", (e) => {
   }
   e.target.value = formatted;
 });
+
+// Tell the parent page (church site embed) how tall we are, so the iframe auto-resizes
+function reportHeight() {
+  const h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+  if (window.parent !== window) {
+    window.parent.postMessage({ type: "quilt-auction-height", height: h }, "*");
+  }
+}
+window.addEventListener("load", reportHeight);
+window.addEventListener("resize", reportHeight);
+setInterval(reportHeight, 500);
+
 </script>
 </body>
 </html>
